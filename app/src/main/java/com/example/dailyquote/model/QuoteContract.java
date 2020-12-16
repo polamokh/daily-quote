@@ -3,7 +3,7 @@ package com.example.dailyquote.model;
 import java.net.URL;
 
 public final class QuoteContract {
-    public static final String BASE_URL = "https://quotes.rest/qod?language=en";
+    public static final String BASE_URL = "https://quotes.rest/qod?language=en&category=life";
 
     public static final String ROOT = "contents";
 
