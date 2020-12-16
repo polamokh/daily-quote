@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Daily Quote</string>
     <string name="quote_of_the_day">Quote of the Day</string>
+    <string name="background">background</string>
 </resources>

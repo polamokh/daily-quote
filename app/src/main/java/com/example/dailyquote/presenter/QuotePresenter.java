@@ -15,8 +15,7 @@ public class QuotePresenter implements IQuotePresenter, IQuote.OnFinishedListene
 
     @Override
     public void onFinished(Quote quote) {
-        if (quote != null)
-            quoteView.setQuote(quote);
+        quoteView.setQuote(quote);
     }
 
     @Override

@@ -100,7 +100,8 @@ public final class JsonUtils {
 
                 return new Quote(quote.getString(QuoteContract.QuoteEntry.TEXT),
                         quote.getString(QuoteContract.QuoteEntry.AUTHOR),
-                        quote.getString(QuoteContract.QuoteEntry.CATEGORY));
+                        quote.getString(QuoteContract.QuoteEntry.CATEGORY),
+                        quote.getString(QuoteContract.QuoteEntry.BACKGROUND));
             }
         } catch (JSONException e) {
             e.printStackTrace();

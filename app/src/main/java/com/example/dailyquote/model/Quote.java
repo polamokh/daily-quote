@@ -8,6 +8,7 @@ public class Quote implements IQuote {
     private String text;
     private String author;
     private String category;
+    private String background;
 
     private static OnFinishedListener listener;
 
@@ -18,6 +19,21 @@ public class Quote implements IQuote {
         this.text = text;
         this.author = author;
         this.category = category;
+    }
+
+    public Quote(String text, String author, String category, String background) {
+        this.text = text;
+        this.author = author;
+        this.category = category;
+        this.background = background;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
     }
 
     public String getText() {
