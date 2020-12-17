@@ -20,5 +20,7 @@ public final class QuoteContract {
         public static final String CATEGORY = "category";
 
         public static final String BACKGROUND = "background";
+
+        public static final String EXPIRE = "expires";
     }
 }

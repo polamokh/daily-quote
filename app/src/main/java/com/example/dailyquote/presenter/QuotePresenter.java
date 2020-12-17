@@ -1,16 +1,17 @@
 package com.example.dailyquote.presenter;
 
-import com.example.dailyquote.model.IQuote;
+import com.example.dailyquote.model.IQuoteInteractor;
 import com.example.dailyquote.model.Quote;
+import com.example.dailyquote.model.QuoteInteractor;
 import com.example.dailyquote.view.IQuoteView;
 
-public class QuotePresenter implements IQuotePresenter, IQuote.OnFinishedListener {
+public class QuotePresenter implements IQuotePresenter, IQuoteInteractor.OnFinishedListener {
     private IQuoteView quoteView;
-    private Quote quote;
+    private QuoteInteractor quoteInteractor;
 
-    public QuotePresenter(IQuoteView quoteView, Quote quote) {
+    public QuotePresenter(IQuoteView quoteView, QuoteInteractor quoteInteractor) {
         this.quoteView = quoteView;
-        this.quote = quote;
+        this.quoteInteractor = quoteInteractor;
     }
 
     @Override
@@ -25,6 +26,6 @@ public class QuotePresenter implements IQuotePresenter, IQuote.OnFinishedListene
 
     @Override
     public void onResume() {
-        quote.getQuote(this);
+        quoteInteractor.getQuote(this);
     }
 }

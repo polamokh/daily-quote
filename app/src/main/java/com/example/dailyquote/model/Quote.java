@@ -4,28 +4,20 @@ import android.os.AsyncTask;
 
 import com.example.dailyquote.utils.JsonUtils;
 
-public class Quote implements IQuote {
+public class Quote {
     private String text;
     private String author;
     private String category;
     private String background;
+    private long expire;
 
-    private static OnFinishedListener listener;
 
-    public Quote() {
-    }
-
-    public Quote(String text, String author, String category) {
-        this.text = text;
-        this.author = author;
-        this.category = category;
-    }
-
-    public Quote(String text, String author, String category, String background) {
+    public Quote(String text, String author, String category, String background, long expire) {
         this.text = text;
         this.author = author;
         this.category = category;
         this.background = background;
+        this.expire = expire;
     }
 
     public String getBackground() {
@@ -60,26 +52,11 @@ public class Quote implements IQuote {
         this.category = category;
     }
 
-    @Override
-    public void getQuote(OnFinishedListener listener) {
-        Quote.listener = listener;
-        new Task().execute(QuoteContract.BASE_URL);
+    public long getExpire() {
+        return expire;
     }
 
-    public static class Task extends AsyncTask<String, Void, Quote> {
-
-        @Override
-        protected Quote doInBackground(String... strings) {
-            if (strings != null && strings.length > 0) {
-                return JsonUtils.fetchQuoteData(strings[0]);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Quote quote) {
-            super.onPostExecute(quote);
-            listener.onFinished(quote);
-        }
+    public void setExpire(long expire) {
+        this.expire = expire;
     }
 }

@@ -1,19 +1,16 @@
 package com.example.dailyquote.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.dailyquote.R;
 import com.example.dailyquote.model.Quote;
+import com.example.dailyquote.model.QuoteInteractor;
 import com.example.dailyquote.presenter.IQuotePresenter;
 import com.example.dailyquote.presenter.QuotePresenter;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements IQuoteView {
@@ -34,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements IQuoteView {
         quoteCategory = findViewById(R.id.quote_category);
         toolbar = findViewById(R.id.toolbar);
 
-        presenter = new QuotePresenter(this, new Quote());
+        presenter = new QuotePresenter(this, new QuoteInteractor(this));
     }
 
     @Override

@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Daily Quote</string>
-    <string name="quote_of_the_day">Quote of the Day</string>
     <string name="background">background</string>
+    
+    <string name="key_text">text_key</string>
+    <string name="key_category">category_text</string>
+    <string name="key_author">author_key</string>
+    <string name="key_background">background_key</string>
+    <string name="key_expire_time">time_key</string>
 </resources>

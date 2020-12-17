@@ -1,6 +1,6 @@
 package com.example.dailyquote.model;
 
-public interface IQuote {
+public interface IQuoteInteractor {
     interface OnFinishedListener {
         void onFinished(Quote quote);
     }
