@@ -5,7 +5,7 @@ import com.example.dailyquote.model.Quote;
 import com.example.dailyquote.model.QuoteInteractor;
 import com.example.dailyquote.view.IQuoteView;
 
-public class QuotePresenter implements IQuotePresenter, IQuoteInteractor.OnFinishedListener {
+public class QuotePresenter implements IQuotePresenter, IQuoteInteractor.IQuoteListener {
     private IQuoteView quoteView;
     private QuoteInteractor quoteInteractor;
 
@@ -15,17 +15,22 @@ public class QuotePresenter implements IQuotePresenter, IQuoteInteractor.OnFinis
     }
 
     @Override
-    public void onFinished(Quote quote) {
-        quoteView.setQuote(quote);
-    }
-
-    @Override
     public void onDestroy() {
         quoteView = null;
     }
 
     @Override
-    public void onResume() {
-        quoteInteractor.getQuote(this);
+    public void onGetQuote(String category) {
+        quoteInteractor.getQuote(category, this);
+    }
+
+    @Override
+    public void onQuoteLoaded(Quote quote) {
+        quoteView.setQuote(quote);
+    }
+
+    @Override
+    public void onQuoteFailure(Throwable t) {
+        quoteView.onError(t);
     }
 }

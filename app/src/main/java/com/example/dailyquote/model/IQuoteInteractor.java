@@ -1,9 +1,11 @@
 package com.example.dailyquote.model;
 
 public interface IQuoteInteractor {
-    interface OnFinishedListener {
-        void onFinished(Quote quote);
+    interface IQuoteListener {
+        void onQuoteLoaded(Quote quote);
+
+        void onQuoteFailure(Throwable t);
     }
 
-    void getQuote(OnFinishedListener listener);
+    void getQuote(String category, IQuoteListener listener);
 }
