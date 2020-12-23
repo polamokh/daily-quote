@@ -57,15 +57,6 @@ public class QuoteSharedPreference {
         editor.apply();
     }
 
-    public static long getElapsedTimeSinceLastSync(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-
-        long time = preferences.getLong(
-                context.getString(R.string.key_expire_time), 0);
-
-        return System.currentTimeMillis() - time;
-    }
-
     public static String getUserCategoryDailyQuote(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(
@@ -79,6 +70,22 @@ public class QuoteSharedPreference {
 
         editor.putString(
                 context.getString(R.string.key_user_category), category);
+        editor.apply();
+    }
+
+    public static boolean isJobScheduled(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(
+                context.getString(R.string.key_job_schedule),
+                false);
+    }
+
+    public static void setJobScheduleFlag(Context context, boolean flag) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean(
+                context.getString(R.string.key_job_schedule), flag);
         editor.apply();
     }
 }

@@ -21,8 +21,6 @@ public class ChooseCategoryDialogFragment extends DialogFragment
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         String category = QuoteSharedPreference.getUserCategoryDailyQuote(getContext());
-        if (category == null)
-            category = QuoteContract.CATEGORIES.inspire.toString();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity())
                 .setTitle(R.string.category_dialog_message)

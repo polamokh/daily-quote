@@ -3,9 +3,9 @@ package com.example.dailyquote.view;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +14,6 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.dailyquote.R;
 import com.example.dailyquote.model.Quote;
-import com.example.dailyquote.model.QuoteContract;
 import com.example.dailyquote.model.QuoteInteractor;
 import com.example.dailyquote.model.QuoteSharedPreference;
 import com.example.dailyquote.presenter.IQuotePresenter;
@@ -52,15 +51,7 @@ public class MainActivity extends AppCompatActivity implements IQuoteView {
     protected void onResume() {
         super.onResume();
 
-        presenter.onGetQuote(getDailyQuoteCategory());
-    }
-
-    private String getDailyQuoteCategory() {
-        String category = QuoteSharedPreference.getUserCategoryDailyQuote(this);
-        if (category == null)
-            category = QuoteContract.CATEGORIES.inspire.toString();
-
-        return category;
+        presenter.onGetQuote(QuoteSharedPreference.getUserCategoryDailyQuote(this));
     }
 
     @Override
@@ -72,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements IQuoteView {
     @Override
     public void setQuote(Quote quote) {
         if (quote != null) {
+            findViewById(R.id.error_view).setVisibility(View.GONE);
+
             this.quote = quote;
             invalidateOptionsMenu();
 
@@ -86,8 +79,7 @@ public class MainActivity extends AppCompatActivity implements IQuoteView {
 
     @Override
     public void onError(Throwable t) {
-        Toast.makeText(this, t.getMessage(), Toast.LENGTH_LONG)
-                .show();
+        findViewById(R.id.error_view).setVisibility(View.VISIBLE);
     }
 
     @Override

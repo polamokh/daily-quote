@@ -2,15 +2,17 @@ package com.example.dailyquote.utils;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.dailyquote.R;
 import com.example.dailyquote.model.Quote;
+import com.example.dailyquote.view.MainActivity;
 
 public class QuoteNotificationUtils {
 
@@ -18,19 +20,27 @@ public class QuoteNotificationUtils {
     private static final int NOTIFICATION_ID = 99;
 
     public static void notifyUser(Context context, Quote quote) {
+        createNotificationChannel(context);
+
+        Intent intent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent
+                .getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(quote.getAuthor())
-                .setContentText(quote.getQuote())
-                .setPriority(NotificationManagerCompat.IMPORTANCE_DEFAULT);
-
-        createNotificationChannel(context);
+                .setContentText(quote.getCategory())
+                .setContentIntent(pendingIntent)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(quote.getQuote()))
+                .setPriority(NotificationManagerCompat.IMPORTANCE_DEFAULT)
+                .setAutoCancel(true);
 
         NotificationManager manager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (manager != null)
+        if (manager != null) {
             manager.notify(NOTIFICATION_ID, builder.build());
-        Log.d("TEST", "notifyUser: ");
+        }
     }
 
     private static void createNotificationChannel(Context context) {

@@ -7,7 +7,6 @@ import com.example.dailyquote.model.IQuoteInteractor;
 import com.example.dailyquote.model.Quote;
 import com.example.dailyquote.model.QuoteSharedPreference;
 import com.example.dailyquote.utils.QuoteJsonUtils;
-import com.example.dailyquote.utils.QuoteNotificationUtils;
 
 import java.util.Objects;
 
@@ -33,11 +32,7 @@ public class QuoteSyncNetwork {
                                     Objects.requireNonNull(response.headers().getDate("expires"))
                                             .getTime());
 
-                            QuoteNotificationUtils.notifyUser(context, quote);
-
                             listener.onQuoteLoaded(quote);
-
-                            //TODO: Implement daily notification
                         } else
                             listener.onQuoteFailure(new Exception(response.message()));
                     }
