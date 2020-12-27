@@ -7,5 +7,4 @@ A simple Android app that displays the quote of day using:
 
 
 ## Screenshot
-<img src="screenshots/screenshot-1.png" width="256">
-<img src="screenshots/screenshot-2.png" width="256">
+|![screenshot-1](screenshots/screenshot-1.png)|![screenshot-2](screenshots/screenshot-2.png)|
