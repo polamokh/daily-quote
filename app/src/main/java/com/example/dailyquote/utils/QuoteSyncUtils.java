@@ -2,45 +2,30 @@ package com.example.dailyquote.utils;
 
 import android.content.Context;
 
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
-
+import com.evernote.android.job.JobRequest;
 import com.example.dailyquote.model.IQuoteInteractor;
 import com.example.dailyquote.model.QuoteSharedPreference;
+import com.example.dailyquote.sync.QuoteSyncJob;
 import com.example.dailyquote.sync.QuoteSyncNetwork;
-import com.example.dailyquote.sync.QuoteSyncWorker;
 
 import java.util.concurrent.TimeUnit;
 
 public class QuoteSyncUtils {
 
-    private static void scheduleJobSchedule(Context context) {
+    public static void scheduleSyncJob(Context context) {
         QuoteSharedPreference.setJobScheduleFlag(context, true);
 
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build();
+        JobRequest.Builder request = new JobRequest.Builder(QuoteSyncJob.TAG)
+                .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
+                .setPeriodic(TimeUnit.DAYS.toMillis(1), TimeUnit.HOURS.toMillis(6))
+                .setUpdateCurrent(true)
+                .setRequirementsEnforced(true);
 
-        PeriodicWorkRequest request = new PeriodicWorkRequest.Builder(QuoteSyncWorker.class,
-                1, TimeUnit.DAYS)
-                .setConstraints(constraints)
-                .setInitialDelay(1, TimeUnit.DAYS)
-                .build();
-
-        WorkManager.getInstance(context)
-                .enqueueUniquePeriodicWork(QuoteSyncWorker.UNIQUE_WORKER_NAME,
-                        ExistingPeriodicWorkPolicy.REPLACE,
-                        request);
+        request.build().schedule();
     }
 
     public static void initialize(Context context, String language, String category,
                                   IQuoteInteractor.IQuoteListener listener) {
-
-        if (!QuoteSharedPreference.isJobScheduled(context))
-            scheduleJobSchedule(context);
 
         if (QuoteSharedPreference.loadQuoteData(context).getQuote() == null)
             getRemoteQuote(context, language, category, listener);

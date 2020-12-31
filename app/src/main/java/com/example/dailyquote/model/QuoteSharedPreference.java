@@ -47,16 +47,6 @@ public class QuoteSharedPreference {
         return new Quote(text, author, category, background);
     }
 
-    public static void saveQuoteExpireTime(Context context, long time) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        editor.putLong(
-                context.getString(R.string.key_expire_time), time);
-
-        editor.apply();
-    }
-
     public static String getUserCategoryDailyQuote(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(

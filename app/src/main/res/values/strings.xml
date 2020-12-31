@@ -7,9 +7,9 @@
     <string name="key_category">category_key</string>
     <string name="key_author">author_key</string>
     <string name="key_background">background_key</string>
-    <string name="key_expire_time">expire_time_key</string>
-    <string name="key_user_category">user_category_key</string>
     <string name="key_job_schedule">job_schedule_key</string>
+
+    <string name="key_user_category">user_category_key</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_share">Share</string>

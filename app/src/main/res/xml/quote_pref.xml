@@ -5,7 +5,6 @@
     <Preference android:key="@string/key_quote" />
     <Preference android:key="@string/key_author" />
     <Preference android:key="@string/key_background" />
-    <Preference android:key="@string/key_expire_time" />
     <Preference android:key="@string/key_user_category" />
     <Preference android:key="@string/key_job_schedule" />
 

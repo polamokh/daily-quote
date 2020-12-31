@@ -7,7 +7,10 @@ import com.example.dailyquote.model.IQuoteInteractor;
 import com.example.dailyquote.model.Quote;
 import com.example.dailyquote.model.QuoteSharedPreference;
 import com.example.dailyquote.utils.QuoteJsonUtils;
+import com.example.dailyquote.utils.QuoteNotificationUtils;
+import com.example.dailyquote.utils.QuoteSyncUtils;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -23,14 +26,10 @@ public class QuoteSyncNetwork {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         if (response.isSuccessful()) {
-                            Quote quote = QuoteJsonUtils.extractFeatureFromJson(response.body());
+                            Quote quote = saveQuoteLocal(context, response);
 
-                            QuoteSharedPreference.saveQuoteData(context,
-                                    Objects.requireNonNull(quote));
-
-                            QuoteSharedPreference.saveQuoteExpireTime(context,
-                                    Objects.requireNonNull(response.headers().getDate("expires"))
-                                            .getTime());
+                            if (!QuoteSharedPreference.isJobScheduled(context))
+                                QuoteSyncUtils.scheduleSyncJob(context);
 
                             listener.onQuoteLoaded(quote);
                         } else
@@ -42,5 +41,35 @@ public class QuoteSyncNetwork {
                         listener.onQuoteFailure(t);
                     }
                 });
+    }
+
+    public static boolean syncQuote(Context context, String language, String category) {
+        try {
+            Response<String> response = QuoteClient.getInstance().getDailyQuote(language, category)
+                    .execute();
+
+            if (response.isSuccessful()) {
+                Quote quote = saveQuoteLocal(context, response);
+
+                QuoteNotificationUtils.notifyUser(context, quote);
+
+                return true;
+            }
+
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    private static Quote saveQuoteLocal(Context context, Response<String> response) {
+        Quote quote = QuoteJsonUtils.extractFeatureFromJson(response.body());
+
+        QuoteSharedPreference.saveQuoteData(context,
+                Objects.requireNonNull(quote));
+
+        return quote;
     }
 }
