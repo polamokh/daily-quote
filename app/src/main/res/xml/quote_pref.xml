@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference android:key="@string/key_category" />
     <Preference android:key="@string/key_quote" />
     <Preference android:key="@string/key_author" />
     <Preference android:key="@string/key_background" />
     <Preference android:key="@string/key_user_category" />
-    <Preference android:key="@string/key_job_schedule" />
 
 </PreferenceScreen>

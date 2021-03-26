@@ -9,10 +9,11 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:contentDescription="@string/no_internet"
-        android:src="@drawable/ic_error_white"
+        android:src="@drawable/ic_error"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:tint="@android:color/white" />
 
     <TextView
         android:id="@+id/text"

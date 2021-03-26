@@ -7,8 +7,6 @@
     <string name="key_category">category_key</string>
     <string name="key_author">author_key</string>
     <string name="key_background">background_key</string>
-    <string name="key_job_schedule">job_schedule_key</string>
-
     <string name="key_user_category">user_category_key</string>
 
     <string name="action_settings">Settings</string>
@@ -19,7 +17,6 @@
     <string name="channel_name">Daily Quote</string>
     <string name="channel_desc">Daily Quote notification</string>
 
-
-    <string name="error_message">No internet connection.</string>
-    <string name="no_internet">No internet</string>
+    <string name="error_message">No internet connection or too many requests.</string>
+    <string name="no_internet">No internet or many requests</string>
 </resources>
